@@ -1,58 +1,51 @@
+using System;
+
 public class HeapSort : SortBase
 {
     public override string SortName => "堆排序";
 
     public override void Sort(int[] nums)
     {
-        // 初始化堆
-        for(int i = nums.Length - 1; i > 0; i--)
+        // 初始化最大堆，复杂度为O(n)
+        for (int i = nums.Length / 2; i >=0; i--)
         {
-            int parentI = (i - 1) / 2;
-            if(nums[parentI] < nums[i])
-            {
-                int tmp = nums[parentI];
-                nums[parentI] = nums[i];
-                nums[i] = tmp;
-            }
+            MaxHeapify(nums, i, nums.Length);
         }
-        SortTest.PrintNums(nums);
-        for(int heapLength = nums.Length;;)
+        
+        // 堆排序，复杂度为O(nlgn)
+        for (int heapLen = nums.Length; heapLen > 0; heapLen--)
         {
-            // 将堆顶的最大元素与当前堆的最后一个元素进行交换，然后再重新调整堆
             int tmp = nums[0];
-            nums[0] = nums[heapLength - 1];
-            nums[heapLength - 1] = tmp;
+            nums[0] = nums[heapLen - 1];
+            nums[heapLen - 1] = tmp;
+            MaxHeapify(nums, 0, heapLen - 1);
+        }
+    }
 
-            SortTest.PrintNums(nums);
-
-            heapLength--;
-            if(heapLength <= 1)
+    // 左右子树已符合最大堆要求的情况下，对顶点元素进行下沉操作，区间[left, right)
+    // 复杂度为O(lgn)
+    void MaxHeapify(int[] nums, int begin, int end)
+    {
+        int num = nums[begin];
+        int foundI = begin;
+        int leftChildI = 2 * foundI + 1;
+        while(leftChildI < end)
+        {
+            int maxI = leftChildI;
+            if(leftChildI + 1 < end && nums[leftChildI] < nums[leftChildI + 1])
+            {
+                maxI = leftChildI + 1;
+            }
+            if(num < nums[maxI])
+            {
+                nums[foundI] = nums[maxI];
+                foundI = maxI;
+                leftChildI = 2 * foundI + 1;
+            }else
             {
                 break;
             }
-
-            int moveNum = nums[0];
-            int foundI = 0;
-            int leftChildI = foundI * 2 + 1;
-            while(leftChildI < heapLength)
-            {
-                int maxChildI = leftChildI;
-                if(leftChildI + 1 < heapLength
-                    && nums[leftChildI] < nums[leftChildI + 1])
-                {
-                    maxChildI = leftChildI + 1;
-                }
-                if(nums[foundI] < nums[maxChildI])
-                {
-                    nums[foundI] = nums[maxChildI];
-                    foundI = maxChildI;
-                    leftChildI = foundI * 2 + 1;
-                }else
-                {
-                    break;
-                }
-            }
-            nums[foundI] = moveNum;
         }
+        nums[foundI] = num;
     }
 }

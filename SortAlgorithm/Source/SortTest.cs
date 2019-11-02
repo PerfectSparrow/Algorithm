@@ -1,12 +1,17 @@
+// #define SORT_DEBUG
+
 using System;
 using System.Collections.Generic;
 
+
 public class SortTest
 {
+#if !SORT_DEBUG
     // 测试用的数组长度
+    const int NUMS_LENGTH = 10000;
+#else
     const int NUMS_LENGTH = 10;
-    // 测试失败后打印的数组长度
-    const int FAIL_PRINT_LENGTH = 10;
+#endif
 
     List<SortBase> sorts = new List<SortBase>();
 
@@ -14,7 +19,7 @@ public class SortTest
     {
         // 冒泡排序
         sorts.Add(new BubbleSort());
-        // 插入排序
+        // 快速排序
         sorts.Add(new QuickSort());
         // 堆排序
         sorts.Add(new HeapSort());
@@ -44,20 +49,6 @@ public class SortTest
             }else
             {
                 passStr = "测试失败失败失败！";
-            }
-            Console.WriteLine(string.Format("{0}: {1}", sort.SortName, passStr));
-            if(!isPass)
-            {
-                for(int i = 0; i < FAIL_PRINT_LENGTH; i++)
-                {
-                    Console.Write(nums1[i] + " ");
-                }
-                Console.WriteLine();
-                for (int i = 0; i < FAIL_PRINT_LENGTH; i++)
-                {
-                    Console.Write(nums2[i] + " ");
-                }
-                Console.WriteLine();
             }
         }
     }
