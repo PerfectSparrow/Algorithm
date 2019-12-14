@@ -6,15 +6,25 @@ public class HeapSort : SortBase
 {
     public override string SortName => "堆排序";
 
+    // 堆排序是不稳定排序
+    // 总的复杂度为O(lgn)
     public override void Sort(int[] nums)
     {
+        // 从下往上，对每个节点进行下沉操作，从倒数第二层开始即可
         // 初始化最大堆，复杂度为O(n)
+        // 时间复杂度分析
+        // 假设高度为h，2^h = n
+        // 从下往上的每层的顶点数为2^(h-1), 2^(h-2) ... 2^1, 2^0
+        // 最下面一层不用操作，总的复杂度S = 2^(h-2) * 2 + 2^1 * (h-1) + ... + 2^0 * h = 2^h - h - 2 = O(n - lgn) = O(n)
         for (int i = nums.Length / 2; i >=0; i--)
         {
             MaxHeapify(nums, i, nums.Length);
         }
         
+        // 将堆顶元素和未排序元素的最后一个进行交换，然后对堆顶进行向下调整
         // 堆排序，复杂度为O(nlgn)
+        // 总的复杂度 S = 2^(h-1) * (h-1) + 2^(h-2) * (h-2) + ... + 2^1 * 1
+        // 每个元素的复杂度为O(lgn), 总的复杂度为O(nlgn)
         for (int heapLen = nums.Length; heapLen > 0; heapLen--)
         {
             int tmp = nums[0];
