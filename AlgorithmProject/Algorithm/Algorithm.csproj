@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\SortAlgorithm\QuickSort.cs">
+      <Link>SortAlgorithm\QuickSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SortAlgorithm\SelectionSort.cs">
+      <Link>SortAlgorithm\SelectionSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SortAlgorithm\InsertionSort.cs">
+      <Link>SortAlgorithm\InsertionSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SortAlgorithm\SortBase.cs">
+      <Link>SortAlgorithm\SortBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SortAlgorithm\MergeSort.cs">
+      <Link>SortAlgorithm\MergeSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SortAlgorithm\ShellSort.cs">
+      <Link>SortAlgorithm\ShellSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SortAlgorithm\BubbleSort.cs">
+      <Link>SortAlgorithm\BubbleSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SortAlgorithm\HeapSort.cs">
+      <Link>SortAlgorithm\HeapSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SortAlgorithm\SortTest.cs">
+      <Link>SortAlgorithm\SortTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Main.cs">
+      <Link>Main.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Common\ITest.cs">
+      <Link>Common\ITest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Common\TestManager.cs">
+      <Link>Common\TestManager.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\SortAlgorithm\README.md">
+      <Link>SortAlgorithm\README.md</Link>
+    </None>
+  </ItemGroup>
+</Project>

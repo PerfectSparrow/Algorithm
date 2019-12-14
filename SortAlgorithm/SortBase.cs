@@ -1,3 +1,4 @@
+// 排序的基础类
 public abstract class SortBase
 {
     public abstract string SortName { get; }

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 
-public class SortTest
+public class SortTest: ITest
 {
 #if !SORT_DEBUG
     // 测试用的数组长度
@@ -13,6 +13,9 @@ public class SortTest
     const int NUMS_LENGTH = 10;
 #endif
 
+    public string TestName => "排序算法测试";
+
+    // 用于注册排序算法
     List<SortBase> sorts = new List<SortBase>();
 
     public SortTest()
@@ -23,6 +26,10 @@ public class SortTest
         sorts.Add(new QuickSort());
         // 堆排序
         sorts.Add(new HeapSort());
+        // 选择排序
+        sorts.Add(new SelectionSort());
+        // 插入排序
+        sorts.Add(new InerstionSort());
     }
 
     public void DoTest()
@@ -50,6 +57,7 @@ public class SortTest
             {
                 passStr = "测试失败失败失败！";
             }
+            Console.WriteLine(string.Format("{0}: {1}", sort.SortName, passStr));
         }
     }
 
@@ -74,10 +82,4 @@ public class SortTest
         }
         Console.WriteLine();
     }
-
-    public static void Main()
-	{
-        SortTest sortTest = new SortTest();
-        sortTest.DoTest();
-	}
 }

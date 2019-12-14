@@ -1,9 +1,5 @@
 # 排序算法
 -----------------------
->TODO：证明堆排序建堆的算法复杂度为O(n)。
->TODO:对实现进行大规模测试，以证明算法的正确性
->TODO:快排的另外一种思路，每一次划分并不会使pivot处于最终的位置，只会使序列以pivot为基础，左边不大于pivot，右边不小于pivot
-
 
 ## 目录
 1、排序算法分类
@@ -43,136 +39,28 @@
 > 2. 若每次选择的基准元素在中间，则递归栈的深度为log2(n)，则复杂度为O(nlog2(n))；若数组已排好序，则复杂度会变为O(n^2)。空间复杂度为栈的深度，为O(log2(n))~O(n)。排序过程中，各元素会来回颠倒，是不稳定的。
 > 3. 算法复杂度一般为O(n^2)，若数组已经排好序，循环会提前退出，复杂度减少为O(n)；空间复杂度为O(n)；排序是稳定的，相等的元素并不会交换前后位置。
 
-##### 2.1.2、代码实现（C#）
-```
-public static void BubbleSort(int[] nums)
-{
-    //i表示i个元素已排序完成，若没有发生交换则说明序列已经有序
-    for(int i = 0; i < nums.Length; i++)
-    {
-        //排序过程中是否发生交换
-        bool isSwaped = false;
-        for(int j = 0; j < nums.Length - i - 1; j++)
-        {
-            if(nums[j] > nums[j + 1])
-            {
-                int tmp = nums[j];
-                nums[j] = nums[j + 1];
-                nums[j + 1] = tmp;
-
-                isSwaped = true;
-            }
-        }
-        if (!isSwaped) break;
-    }
-}
-```
-
 
 ### 2.2、快速排序(Quick Sort)
 ##### 2.2.1、算法描述和分析
 > 1. 选择一个基准元素（一般是第一个），将比基准元素的小的放其在左边，其它的放在其右边，每一趟将排列好一个元素，递归排序左右两边，递归完成后，左右两边将变成有序的。这是分治的算法思想。
 > 2. 若每次选择的基准元素在中间，则递归栈的深度为log2(n)，则复杂度为O(nlog2(n))；若数组已排好序，则复杂度会变为O(n^2)。空间复杂度为栈的深度，为O(log2(n))~O(n)。排序过程中，各元素会来回颠倒，是不稳定的。
 
-##### 2.2.2、代码实现（C#）
-```
-//这种划分每次会使基准元素走到其特定的位置
-public static void Partition(int[] nums, int left, int right)
-{
-    int tmpLeft = left, tmpRight = right;
-    if (left >= right) return;
-    int pivot = nums[left];
-    while (left<right)
-    {
-        while (left < right && nums[right] >= pivot) right--;
-        nums[left] = nums[right];
-        while (left < right && nums[left] < pivot) left++;
-        nums[right] = nums[left];
-    }
-    nums[left] = pivot;
-    Partition(nums, tmpLeft, left - 1);
-    Partition(nums, left + 1, tmpRight);           
-}
-```
-
 
 ### 2.3、简单插入排序（Instertion Sort）
 ##### 2.3.1、算法描述
 >从第二个元素开始，将元素往前面已排序好的序列中进行插入，直到整个数组有序。
-
-##### 2.3.2、代码实现（C#）
-```
-public static void InsertionSort(int[] nums)
-{
-    for(int i=1; i<nums.Length; i++)
-    {
-        int numForInsertion = nums[i];
-        int pos = i-1;
-        while(pos>=0 && nums[pos] > numForInsertion)
-        {
-            nums[pos + 1] = nums[pos];
-            pos--;
-        }
-        nums[pos+1] = numForInsertion;
-    }
-}
-```
-##### 2.3.3、算法分析
 >算法复杂度为O(n^2)，若数组已排序好，则算法复杂度变为O(n)；空间复杂度为O(1)；排序是稳定的。
 
 
 ### 2.4、希尔排序（Shell Sort）
 ##### 2.4.1、算法描述
 >1959年Shell发明的，第一个突破O(n^2)的算法，是简单插入排序的改进版。每次取间隔为m的子序列进行插入排序，m每次变为原先的一半，直到变为1。希尔排序又称缩小增量排序。
-
-##### 2.4.2、代码实现（C#）
-```
-public static void ShellSort(int[] nums)
-{
-    int m = nums.Length / 2;
-    while(m>=1)
-    {
-        for(int i=m; i<nums.Length; i+=m)
-        {
-            int numForInsertion = nums[i];
-            int pos = i - m;
-            while(pos>=0 && nums[pos]>numForInsertion)
-            {
-                nums[pos + m] = nums[pos];
-                pos -= m;
-            }
-            nums[pos + m] = numForInsertion;
-        }
-        m /= 2;
-    }
-}
-```
-##### 2.4.3、算法分析
 >希尔排序的下届是O(log2(n))，比O(n^2)要快很多；中等规模数据表现良好，没有快排快。希尔排序过程中，间隔较大时，排序的元素较少；间隔较小时，元素已基本有序，需要移动的元素较少，所以要比简单的插入排序快很多。时间复杂平均为**O(n^1.3)**,空间复杂度为O(1)，是不稳定的排序算法。
 
 
 ### 2.5、简单选择排序（Selection Sort）
 ##### 2.5.1、算法描述
 >每次选择最大的元素与最后一个交换，n-1次交换后，数组变为有序的。
-
-##### 2.5.2、代码实现（C#）
-```
-public static void SelectionSort(int[] nums)
-{
-    for(int i=0; i<nums.Length; i++)
-    {
-        int maxPos = 0;
-        for(int j=1; j<nums.Length-i; j++)
-        {
-            if (nums[j] >= nums[maxPos]) maxPos = j;
-        }
-        int tmp = nums[maxPos];
-        nums[maxPos] = nums[nums.Length - 1 - i];
-        nums[nums.Length - 1 - i] = tmp;
-    }
-}
-```
-##### 2.5.3、算法分析
 >时间复杂度总是O(n^2)，最为简单直观的算法，不如冒泡排序，选择排序元素的交换次数要比冒泡排序少。空间复杂度为O(1)，是不稳定的排序算法。**选择排序根据算法的实现细节可以是稳定的算法，比较每次取最大的数放到最后时，两个数相同时取后一个数，这样排序就是稳定的。但是网上都说简单选择排序是不稳定的，这里不深究了（ps：可能是我错了）。**
 
 ### 2.6、堆排序（Heap Sort）
@@ -182,104 +70,11 @@ public static void SelectionSort(int[] nums)
 > 2. 将数组的第一个元素和最末尾的一个元素进行交换，再采用堆调整算法，使其重新成为一个最大堆。
 > 3. 堆调整算法：左右子树都符合堆的要求，只有堆顶的元素不符合，从上往下从新调整堆，从而使整个堆符合要求。2^k * 1 + 2^(k-1) * 2 + … + k，调整算法的复杂度为O(lg(n))。
 > 4. 初始化堆的过程：从最后一个元素开始对堆进行调整，则调整某个元素的时候，其左右子树已符合堆的要求。采用堆调整算法对其进行调整，每次调整的复杂度为O(lg(n))，2^k * k + 2^(k-1) * (k-1) + … + 1，其总的复杂度为O(nlgn)。
-#####2.6.2、代码实现
-```
-//调整某一个节点，使其符合最大堆的要求，复杂度为O(log2(end-begin))
-public static void HeapSort(int[] nums)
-{
-    // 初始化最大堆，复杂度为O(n)
-    for (int i = nums.Length / 2; i >=0; i--)
-    {
-        MaxHeapify(nums, i, nums.Length);
-    }
-        
-    // 堆排序，复杂度为O(nlgn)
-    for (int heapLen = nums.Length; heapLen > 0; heapLen--)
-    {
-        int tmp = nums[0];
-        nums[0] = nums[heapLen - 1];
-        nums[heapLen - 1] = tmp;
-        MaxHeapify(nums, 0, heapLen - 1);
-    }
-}
-
-// 左右子树已符合最大堆要求的情况下，对顶点元素进行下沉操作，区间[left, right)
-// 复杂度为O(lgn)
-void MaxHeapify(int[] nums, int begin, int end)
-{
-    int num = nums[begin];
-    int foundI = begin;
-    int leftChildI = 2 * foundI + 1;
-    while(leftChildI < end)
-    {
-        int maxI = leftChildI;
-        if(leftChildI + 1 < end && nums[leftChildI] < nums[leftChildI + 1])
-        {
-            maxI = leftChildI + 1;
-        }
-        if(num < nums[maxI])
-        {
-            nums[foundI] = nums[maxI];
-            foundI = maxI;
-            leftChildI = 2 * foundI + 1;
-        }else
-        {
-            break;
-        }
-    }
-    nums[foundI] = num;
-}
-```
-#####2.6.3、算法分析
 >堆排序是在一个二叉树上进行排序，初始化堆的复杂度为O(n)，调整堆每次操作的时间为log2(n),log2(n-1).... 其时间复杂度为O(log2(n))，空间复杂度为O(1)，元素在二叉上中上升的过程是杂乱的，其是不稳定的排序算法。
 
 ###2.7、二路归并排序（Merge Sort）
 #####2.7.1、算法描述
 >采用分治法（Divide and Conquer）的典型例子，将原数组分成两个子序列，再对偏好的子序列进行合并。
-
-#####2.7.2、代码实现
-```
-public static void MergeImpl(int[] nums, int[] sortTmp, int left, int right)
-{
-    if (left >= right) return;
-    int mid = (left + right) / 2;
-    //一定要划分为[left, mid]和[mid+1, right]，不然会栈溢出
-    MergeImpl(nums, sortTmp, left, mid);
-    MergeImpl(nums, sortTmp, mid+1, right);
-    int leftI = left;
-    int rightI = mid+1;
-    int tmpI = left;
-    while(leftI<=mid && rightI<=right)
-    {
-        if(nums[leftI] <= nums[rightI])
-        {
-            sortTmp[tmpI++] = nums[leftI++];
-        }else
-        {
-            sortTmp[tmpI++] = nums[rightI++];
-        }
-    }
-    while(leftI<=mid)
-    {
-        sortTmp[tmpI++] = nums[leftI++];
-    }
-    while(rightI<=right)
-    {
-        sortTmp[tmpI++] = nums[rightI++];
-    }
-    for(int i=left; i<=right; i++)
-    {
-        nums[i] = sortTmp[i];
-    }
-}
-
-public static void MergeSort(int[] nums)
-{
-    int[] sortTmp = new int[nums.Length];
-    MergeImpl(nums, sortTmp, 0, nums.Length - 1);
-}
-```
-#####2.7.3、算法分析
 >归并排序的算法复杂度为O(nlog2(n))，其空间复杂度为O(n),排序过程是稳定的。
 
 ###2.8、计数排序（Counting Sort）
