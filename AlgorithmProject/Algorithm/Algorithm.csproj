@@ -54,6 +54,9 @@
     <Compile Include="..\..\PriorityQueue\PriorityQueueTest.cs">
       <Link>PriorityQueue\PriorityQueueTest.cs</Link>
     </Compile>
+    <Compile Include="..\..\PriorityQueue\IndexPriorityQueue.cs">
+      <Link>PriorityQueue\IndexPriorityQueue.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\SortAlgorithm\README.md">

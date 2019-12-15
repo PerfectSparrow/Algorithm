@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 
 public class SortTest: ITest
@@ -14,6 +15,8 @@ public class SortTest: ITest
 #endif
 
     public string TestName => "排序算法测试";
+
+    public string ResultString { get; set; }
 
     // 用于注册排序算法
     List<SortBase> sorts = new List<SortBase>();
@@ -38,8 +41,10 @@ public class SortTest: ITest
         sorts.Add(new MergeSortNonRecursion());
     }
 
-    public void DoTest()
+    public bool DoTest()
     {
+        StringBuilder resSb = new StringBuilder();
+        bool isSuccess = true;
         foreach(var sort in sorts)
         {
             int[] nums1, nums2;
@@ -63,8 +68,14 @@ public class SortTest: ITest
             {
                 passStr = "测试失败失败失败！";
             }
-            Console.WriteLine(string.Format("{0}: {1}", sort.SortName, passStr));
+            isSuccess = isSuccess && isPass;
+            // Console.WriteLine(string.Format("{0}: {1}", sort.SortName, passStr));
+            resSb.AppendFormat("{0}: {1}\n", sort.SortName, passStr);
         }
+
+        ResultString = resSb.ToString();
+
+        return isSuccess;
     }
 
     void GenerateNums(out int[] nums1, out int[] nums2)

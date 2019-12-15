@@ -9,8 +9,12 @@ public class HeapSort : SortBase
 
     public override void Sort(int[] nums)
     {
+        if (nums.Length == 0) return;
+
         // 初始化最大堆，复杂度为O(n)
         // 调整的过程是一个从下到上不停调整的过程
+        // nums.Length为0会报错
+        // 从非叶子节点开始调整
         for (int i = nums.Length / 2; i >=0; i--)
         {
             MaxHeapify(nums, i, nums.Length);
