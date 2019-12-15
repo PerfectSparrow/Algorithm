@@ -1,6 +1,7 @@
-
-
 // 快速排序
+// 算法复杂度O(nlgn) -- O(n^2)，空间复杂度O(lgn) -- O(n)
+// 运行效率由概率提供保证
+// 不稳定排序，在划分的过程中，相同的元素可能划到左边，也可能划到右边
 public class QuickSort : SortBase
 {
     public override string SortName => "快速排序";

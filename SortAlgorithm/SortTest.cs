@@ -30,6 +30,12 @@ public class SortTest: ITest
         sorts.Add(new SelectionSort());
         // 插入排序
         sorts.Add(new InerstionSort());
+        // 希尔排序
+        sorts.Add(new ShellSort());
+        // 归并排序（递归）
+        sorts.Add(new MergeSortRecursion());
+        // 归并排序（非递归）
+        sorts.Add(new MergeSortNonRecursion());
     }
 
     public void DoTest()
@@ -65,7 +71,7 @@ public class SortTest: ITest
     {
         nums1 = new int[NUMS_LENGTH];
         nums2 = new int[NUMS_LENGTH];
-        Random random = new Random();
+        Random random = new Random(Guid.NewGuid().GetHashCode());
         for(int i = 0; i < NUMS_LENGTH; i++)
         {
             int num = random.Next(NUMS_LENGTH);
