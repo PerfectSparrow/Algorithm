@@ -3,6 +3,7 @@ public interface ITest
 {
 
     // 测试名称
-    public abstract string TestName { get; }
-    public abstract void DoTest();
+    public string TestName { get; }
+    public bool DoTest();
+    public string ResultString { get; set; }
 }

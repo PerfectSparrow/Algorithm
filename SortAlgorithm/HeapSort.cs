@@ -1,7 +1,8 @@
 using System;
 
 // 堆排序
-
+// 空间复杂度O(nlgn)，空间复杂度为O(1)
+// 不稳定排序，元素下降的过程中会打破相同元素的前后顺序
 public class HeapSort : SortBase
 {
     public override string SortName => "堆排序";
@@ -10,12 +11,21 @@ public class HeapSort : SortBase
     // 总的复杂度为O(lgn)
     public override void Sort(int[] nums)
     {
+<<<<<<< HEAD
         // 从下往上，对每个节点进行下沉操作，从倒数第二层开始即可
         // 初始化最大堆，复杂度为O(n)
         // 时间复杂度分析
         // 假设高度为h，2^h = n
         // 从下往上的每层的顶点数为2^(h-1), 2^(h-2) ... 2^1, 2^0
         // 最下面一层不用操作，总的复杂度S = 2^(h-2) * 2 + 2^1 * (h-1) + ... + 2^0 * h = 2^h - h - 2 = O(n - lgn) = O(n)
+=======
+        if (nums.Length == 0) return;
+
+        // 初始化最大堆，复杂度为O(n)
+        // 调整的过程是一个从下到上不停调整的过程
+        // nums.Length为0会报错
+        // 从非叶子节点开始调整
+>>>>>>> bcd4a11eb06504b6766d5b08bd4872b0ea32da59
         for (int i = nums.Length / 2; i >=0; i--)
         {
             MaxHeapify(nums, i, nums.Length);

@@ -45,6 +45,18 @@
     <Compile Include="..\..\Common\TestManager.cs">
       <Link>Common\TestManager.cs</Link>
     </Compile>
+    <Compile Include="..\..\SortAlgorithm\StdSort.cs">
+      <Link>SortAlgorithm\StdSort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PriorityQueue\PriorityQueue.cs">
+      <Link>PriorityQueue\PriorityQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PriorityQueue\PriorityQueueTest.cs">
+      <Link>PriorityQueue\PriorityQueueTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\PriorityQueue\IndexPriorityQueue.cs">
+      <Link>PriorityQueue\IndexPriorityQueue.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\SortAlgorithm\README.md">

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 
 public class SortTest: ITest
@@ -14,6 +15,8 @@ public class SortTest: ITest
 #endif
 
     public string TestName => "排序算法测试";
+
+    public string ResultString { get; set; }
 
     // 用于注册排序算法
     List<SortBase> sorts = new List<SortBase>();
@@ -30,10 +33,18 @@ public class SortTest: ITest
         sorts.Add(new SelectionSort());
         // 插入排序
         sorts.Add(new InerstionSort());
+        // 希尔排序
+        sorts.Add(new ShellSort());
+        // 归并排序（递归）
+        sorts.Add(new MergeSortRecursion());
+        // 归并排序（非递归）
+        sorts.Add(new MergeSortNonRecursion());
     }
 
-    public void DoTest()
+    public bool DoTest()
     {
+        StringBuilder resSb = new StringBuilder();
+        bool isSuccess = true;
         foreach(var sort in sorts)
         {
             int[] nums1, nums2;
@@ -57,15 +68,21 @@ public class SortTest: ITest
             {
                 passStr = "测试失败失败失败！";
             }
-            Console.WriteLine(string.Format("{0}: {1}", sort.SortName, passStr));
+            isSuccess = isSuccess && isPass;
+            // Console.WriteLine(string.Format("{0}: {1}", sort.SortName, passStr));
+            resSb.AppendFormat("{0}: {1}\n", sort.SortName, passStr);
         }
+
+        ResultString = resSb.ToString();
+
+        return isSuccess;
     }
 
     void GenerateNums(out int[] nums1, out int[] nums2)
     {
         nums1 = new int[NUMS_LENGTH];
         nums2 = new int[NUMS_LENGTH];
-        Random random = new Random();
+        Random random = new Random(Guid.NewGuid().GetHashCode());
         for(int i = 0; i < NUMS_LENGTH; i++)
         {
             int num = random.Next(NUMS_LENGTH);
